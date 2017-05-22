@@ -1,0 +1,34 @@
+aula1
+
+javascript:
+
+- top to bottom: lê o código de cima para baixo da direita para esquerda;
+
+- tudo é mutável: objetos podem ganhar propriedades novas.
+
+- funções, closures e escopo: 
+	closures escondem os atributos de um escopo externo;
+
+- prototype: 
+	referência de cadeia única (até chegar no object)
+	object possui prototype (que disponibiliza recursos unicos na aplicação para todos que extendem o object)
+
+	(redefinir length em um array faz a vm redefini-lo)
+
+
+ANGULAR:
+
+- integrar com backend a partir de ajax;
+
+- facilidade de automação de testes;
+
+
+PLUGIN EMMET
+
+jhon papa's style guide
+
+todd motto's style guide
+
+javascript roisinc?
+
+"$roopScope = 'window'"

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AppTT">
+<head>
+	<meta charset="utf-8">
+	<title>Angular TT - exercicio 1</title>
+<body ng-controller="Controller2">
+<form>
+
+</form>
+	
+	<input type="text" ng-model="qty" value="0">
+	<br>
+	<input type="text" ng-model="value" value="0">
+	<br>
+	<span>Total : {{qty * value| currency:'U$D ':2}}</span>
+	<br>
+	{{ola}}
+	<br>
+	{{ola2}}
+	<div ng-controller="Controller3 as c3"> 
+		{{c3.ola3}}
+	</div>
+	
+	
+	<script src="../angular.js"></script>
+
+	<script>
+		angular.module('AppTT', [])
+			.filter('invert', function(){
+			return function(text) {
+				if (text){
+					return text.split('').reverse().join('');
+				}
+			}
+			})
+			.filter('truncate',function(){
+				return function(text, len) {
+					if(text){
+						var length = len || 10;
+						//if(len){ length = len;}
+						var etc = endOfString || "...";
+						if(text.length > length){
+							return text.substring(0, length) + etc;
+						}else{
+							return text;
+						}
+					}
+				}
+			})
+			.filter('currency',function(){
+				return function(text, cur, fracSize){
+					var fractionSize = fracSize || 0;
+					var currency = cur ||'R$ ';
+					var result = text;
+					if (text){
+						result = currency + result;
+					}
+					if(fractionSize){
+						console.log('result.length <= fractionSize' + result.length <= fractionSize);
+						console.log('text.length ' + text.length);
+						console.log('fractionSize ' + fractionSize);
+						if(text.length <= fractionSize){
+							
+						}else{
+							result = result.toString().substr(0,result.length - fractionSize) 
+								+ ',' 
+								+ result.toString().substr(result.length - fractionSize);	
+						}
+						
+					}
+					
+					return result;
+				}
+			})
+			.controller('Controller1', ['$scope',function($scope){
+				$scope.ola = 'Olá turma';
+			}])
+			.controller('Controller2', Controller2)
+			.controller('Controller3', Controller3);
+			Controller2.$inject = ['$scope'];
+
+			function Controller2($scope){
+				$scope.ola2 = 'Olá turma2';
+			}
+
+			function Controller3($scope){
+				vm = this;
+				vm.ola3 = 'Olá turma3';
+			}
+
+	</script>
+</body>
+</head>
+</html>
