@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AngularTT">
+<head>
+	<meta charset="utf-8">
+	<title>Angular TT</title>
+<body>
+	<div ng-controller="AgendaController as ag">
+		
+		<table>
+			<tr ng-repeat="usu in ag.contatos"  >
+				<td>{{usu.nome}}</td>
+			</tr>
+		</table>
+
+
+		<br>
+		Interando entre as propriedades do array
+		<table>
+			<thead>
+				<tr>
+					<th ng-repeat="(key, value) in ag.contatos[0]">
+						{{key}}
+					</th>
+				</tr>
+			</thead>
+			<tr ng-repeat="usu in ag.contatos | orderBy:'nome':true"  > <!-- para ordenar desc ou colocar hifen na frente '-nome' -->
+				<td ng-repeat="info in usu">{{info}}</td>
+			</tr>
+		</table>
+		<br>
+
+		<input type="text" ng-model="searchField.nome" placeholder="Busca...por nome">
+
+
+		<br>
+		nginit para variavel rápida + filtro
+		<table>
+			<thead>
+				<tr>
+					<th ng-repeat="(key, value) in ag.contatos[0]">
+						{{key}}
+					</th>
+				</tr>
+			</thead>
+			<tbody ng-init="propKey = 'nome'; reverse = false">	
+				<tr ng-repeat="usu in ag.contatos | orderBy:propKey:reverse | filter:searchField"  > <!-- para ordenar desc ou colocar hifen na frente '-nome' -->
+					<td ng-repeat="info in usu">{{info}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		
+	</div>
+	<script src="../angular.js"></script>
+	<script type="text/javascript">
+		angular.module('AngularTT', [])
+		.controller('AgendaController', AgendaController);
+
+		//AgendaController.$inject = ['$scope'];
+
+		function AgendaController($scope){
+			vm = this;
+
+			vm.contatos = [{nome:'joao', telefone:'33330000',email:'email1@email.com'},
+							{nome:'maria', telefone:'33330000',email:'email2@email.com'},
+							{nome:'alberto', telefone:'33330000',email:'email3@email.com'},]
+
+		}
+	</script>
+	<style>
+	table, th , td  {
+	  border: 1px solid grey;
+	  border-collapse: collapse;
+	  padding: 5px;
+	}
+	table tr:nth-child(odd) {
+	  background-color: #f1f1f1;
+	}
+	table tr:nth-child(even) {
+	  background-color: #ffffff;
+	}
+	</style>
+</body>
+</head>
+</html>

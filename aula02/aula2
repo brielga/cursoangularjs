@@ -1,0 +1,14 @@
+aula2
+
+DIRETIVAS
+ng-app, ng-model, ng-controller, ng-bind, ng-repeat
+
+REVISAO aula 1
+
+controller as
+
+vm (colocar scope da controler dentro de uma variavel para melhor controle interno)
+
+EXERCICIO2
+
+

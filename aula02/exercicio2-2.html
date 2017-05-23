@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AngularTT">
+<head>
+	<meta charset="utf-8">
+	<title>Angular TT</title>
+<body>
+	<div ng-controller="AgendaController as ag">
+
+
+		<input type="text" ng-model="searchField.nome" placeholder="Busca...por nome">
+
+
+		<br>
+		filtro por nome
+		<table>
+			<thead>
+				<tr>
+					<th ng-repeat="(key, value) in ag.contatos[0]">
+						{{key}}
+					</th>
+				</tr>
+			</thead>
+			<tbody ng-init="propKey = 'nome'; reverse = false">	
+				<tr ng-repeat="usu in ag.contatos | orderBy:propKey:reverse | filter:searchField "  > <!-- para ordenar desc ou colocar hifen na frente '-nome' -->
+					<td >{{usu.nome}}</td><td>{{usu.telefone | filtroTelefone}}</td><td >{{usu.email}}</td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+	<script src="../angular.js"></script>
+	<script type="text/javascript">
+		angular.module('AngularTT', [])
+		.controller('AgendaController', AgendaController)
+		.filter('filtroTelefone',function(){
+			return function(values){
+				return '0';
+			}
+		});
+
+		//AgendaController.$inject = ['$scope'];
+
+		function AgendaController(){
+			vm = this;
+
+			vm.contatos = [{nome:'joao', telefone:'33330000',email:'email1@email.com'},
+							{nome:'maria', telefone:'33330000',email:'email2@email.com'},
+							{nome:'alberto', telefone:'33330000',email:'email3@email.com'},]
+
+		}
+	</script>
+	<style>
+	table, th , td  {
+	  border: 1px solid grey;
+	  border-collapse: collapse;
+	  padding: 5px;
+	}
+	table tr:nth-child(odd) {
+	  background-color: #f1f1f1;
+	}
+	table tr:nth-child(even) {
+	  background-color: #ffffff;
+	}
+	</style>
+</body>
+</head>
+</html>
