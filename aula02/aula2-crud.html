@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AppTT">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <!-- TODO - checkbox que apague todos os selecionados-->
+</head>
+<body ng-controller="ExemploController as ec">
+
+	<ul ng-repeat="item in ec.items">
+		<input ng-model="item.checked" type="checkbox">selecionar</input>
+		<li>{{item.nome}} , {{item.idade}}</li>
+		<li><button ng-click="ec.deleteByNome(item)">Delete</button></li>
+	</ul>
+	<br>
+    <button ng-click="ec.add()">add</button>
+    <button ng-click="ec.addComParam(ec.form)">addComParam</button>
+    <button ng-click="ec.addComParamReferencia(ec.form)">addComParamReferencia</button>
+    <button ng-click="ec.deleteSelecionados()">deleteSelecionados</button>
+
+    <br>
+    <input type="text" placeholder="Nome" ng-model="ec.form.nome"> {{ec.form.nome}}
+    <br>
+    <input type="number" placeholder="Idade" ng-model="ec.form.idade"> {{ec.form.idade}}
+</body>
+
+
+<script src="../angular.js"></script>
+<script type="text/javascript">
+	angular.module('AppTT',[])
+		.controller('ExemploController', ExemploController);
+
+		function ExemploController() {
+			var vm = this;
+			vm.items = [{nome:'augusto',idade:22},
+							{nome:'augusta',idade:50},
+							{nome:'joao',idade:19}]
+
+			vm.add = add;
+			
+			function add(){
+				vm.items.push({nome:vm.form.nome,idade:vm.form.idade});
+			}
+
+			vm.addComParamReferencia = addComParamReferencia;
+			function addComParamReferencia(form){
+				vm.items.push(form); // manda por referencia o campo do formulario
+			}
+
+			vm.addComParam = addComParam;
+			function addComParam(form){
+				//vm.items.push(form); // manda por referencia o campo do formulario
+				vm.items.push(angular.copy(form)); // copia o objeto perdendo referencia
+				//delete form; deleta apenas dentro desta funcao
+				delete vm.form; //limpa o dado (tela e escopo)
+			}
+
+			vm.deleteByNome = deleteByNome;
+			function deleteByNome(item){
+				let filteredArray = vm.items.filter(function(value){
+					return value.nome !== item.nome});
+				console.log(filteredArray);
+				vm.items = filteredArray;
+			}
+
+			vm.deleteSelecionados = deleteSelecionados;
+			function deleteSelecionados(){
+				vm.items.forEach(function(item){
+					if (item.checked){
+						vm.deleteByNome(item);
+					}
+				})
+				
+			}
+		//fim ExemploController
+		}
+
+</script>
+</html>

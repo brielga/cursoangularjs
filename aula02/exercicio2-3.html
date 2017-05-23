@@ -3,6 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>Angular TT</title>
+	<!--1 - Criar funcao que ordena tabela ao clicar na th -->
+	<!--2 - criar crud -->
 <body>
 	<div ng-controller="AgendaController as ag">
 
@@ -15,13 +17,13 @@
 		<table>
 			<thead>
 				<tr>
-					<th ng-repeat="(key, value) in ag.contatos[0]">
-						{{key}}
-					</th>
+					<th> <a href="#" ng-click="orderByFilter='nome' ; reverseSort = !reverseSort">	Nome </a> </th>
+					<th> <a href="#" ng-click="orderByFilter='nome' ; reverseSort = !reverseSort">	Fone </a> </th>
+					<th> <a href="#" ng-click="orderByFilter='nome' ; reverseSort = !reverseSort">	Email </a> </th>
 				</tr>
 			</thead>
 			<tbody ng-init="propKey = 'nome'; reverse = false">	
-				<tr ng-repeat="usu in ag.contatos | orderBy:propKey:reverse | filter:searchField "  > <!-- para ordenar desc ou colocar hifen na frente '-nome' -->
+				<tr ng-repeat="usu in ag.contatos | orderBy:orderByFilter:reverseSort | filter:searchField "  > <!-- para ordenar desc ou colocar hifen na frente '-nome' -->
 					<td >{{usu.nome}}</td><td>{{usu.telefone | filtroTelefone}}</td><td >{{usu.email}}</td>
 
 				</tr>
@@ -45,11 +47,12 @@
 		function AgendaController(){
 			vm = this;
 
+
 			vm.contatos = [{nome:'joao', telefone:'33330000',email:'email1@email.com'},
 							{nome:'maria', telefone:'33330000',email:'email2@email.com'},
 							{nome:'alberto', telefone:'33330000',email:'email3@email.com'},]
 
-		}
+			}
 	</script>
 	<style>
 	table, th , td  {
