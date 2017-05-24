@@ -28,7 +28,8 @@
 <script src="../angular.js"></script>
 <script type="text/javascript">
 	angular.module('AppTT',[])
-		.controller('ExemploController', ExemploController);
+		.controller('ExemploController', ExemploController)
+		.filter('filtroExclusao',FiltroExclusao);
 
 		function ExemploController() {
 			var vm = this;
@@ -74,6 +75,13 @@
 			}
 		//fim ExemploController
 		}
+
+		function FiltroExclusao(){
+			var vm = this;
+
+		// fim FiltroExclusao
+		}
+
 
 </script>
 </html>

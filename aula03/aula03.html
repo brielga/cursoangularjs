@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AppTT">
+<head>
+	<meta charset="UTF-8">
+	<title>edição</title>
+	
+
+
+	
+</head>
+<body>
+	<div ng-controller="ContatoController as cc">
+		
+	<table>
+		<thead>
+			<th>Coolorir</th>
+			<th>index</th>
+			<th>Nome</th>
+			<th>Fone</th>
+			<th>Email</th>
+			<th>Edit</th>
+		</thead>
+		
+		<tbody >
+			<tr class=".colorir" ng-repeat="item in cc.items" ng-class="{'colorir':cc.items[$index].colorir}">
+				<td>
+					<input type="checkbox" ng-model="cc.items[$index].colorir">Colorir</input>
+				</td>
+				<td>
+					{{item.index = $index}}
+				</td>
+				<td>{{item.nome}}</td>
+				<td>{{item.telefone}}</td>
+				<td>{{item.email}}</td>
+				<td><input type="button" value="Editar" ng-click="cc.setEdit(item,$index); cc.editando = true"></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<p>
+		Nome:<input type="text" ng-model="cc.item.nome">
+		Fone:<input type="number" ng-model="cc.item.telefone">
+		Email:<input type="text" ng-model="cc.item.email">
+		<br>
+		<input type="button" ng-show="cc.editando" value="EDIT" ng-click="cc.editando = false;cc.edit(cc.item)">
+		<input type="button" ng-show="!cc.editando" value="SAVE" ng-click="cc.save(cc.item)">
+	</p>
+
+	</div>
+
+
+	<script src="../angular.js"></script>
+	<script type="text/javascript">
+		angular.module('AppTT',[])
+			.controller('ContatoController',ContatoController);
+
+			function ContatoController(){
+				vm = this;
+
+				vm.items = [{nome:'joao', telefone:33330000,email:'email1@email.com'},
+							{nome:'maria', telefone:33330000,email:'email2@email.com'},
+							{nome:'alberto', telefone:33330000,email:'email3@email.com'}];
+
+				vm.save = save;
+
+				function save(item){
+					console.log('SAVE');
+					vm.items.push(angular.copy(item));
+				}
+
+				vm.setEdit = setEdit;
+
+				function setEdit(item, index){
+					vm = this;
+					vm.item = angular.copy(item);
+				}
+
+				vm.edit = edit;
+				
+				function edit(item){
+					vm = this;
+					let novoArray = vm.items.map(function(val,i){
+						if(i === item.index){
+							console.log('achou');
+							return angular.copy(vm.item);
+						}else{
+							return val;
+						}
+					})
+					vm.items = novoArray;
+					delete vm.item;
+					
+				}
+			}
+	</script>
+</body>
+<style>
+	table, th , td  {
+	  border: 1px solid grey;
+	  border-collapse: collapse;
+	  padding: 5px;
+	}
+	table tr:nth-child(odd) {
+	  background-color: #f1f1f1;
+	}
+	table tr:nth-child(even) {
+	  background-color: #ffffff;
+	}
+
+	.colorir{
+		background-color: #55FF55 !important;
+	}
+	</style>
+</html>
