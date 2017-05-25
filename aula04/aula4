@@ -1,0 +1,98 @@
+Transclude:
+possui apontamento diferente de escopo e de prototype;
+(http://codepen.io/beto_zi/pen/qqyoeL?editors=1010)
+
+
+ciclo diretiva
+
+DECLARAÇÃO
+
+init :apenas 1 vez na aplicacao, na primeira vez que é encontrada (todos no mesmo nivel sao init antes de comp)
+
+comp :apenas 1 vez para cada escopo, na primeira vez que é encontrada ()
+
+prelink : top to bottom - liga o escopo com o template (html já está pronto nesta etapa)
+	link: {
+		pre: function(scope, elem, attr{});
+	}
+
+postlink : bottom to top
+	link:{(scope, elem, attr{})}
+
+
+UTILIZAÇÃO
+
+Boa pratica:
+-Injetar o controller de uma diretiva 'required:^nomedadiretiva'
+
+COMPONENTES:
+
+São responsáveis apenas para os seus próprios dados.
+
+Não utilizar:
+-quando necessario executar acoes durante as funcoes de compoile e prelink;
+-quando for necessario definioes avançadas de diretivas: priority,terminal,multi-element;
+-quando for utilizada diretiva ativada por atributo ou por classe css;
+
+Etradas:
+< - 1 way binding 
+
+@ -
+
+Saídas:
+& -
+
+Ciclo de vida :
+$onInit : inicializa propriedades
+
+$postLink : binding já estão feitos (arvore ja construidas), pode adicionar listners
+
+$onChanges : avisa de alterações de dados acima na hierarquia
+
+$onDestroy ($destroy) : se foi adicionado listner(no windows, por exemplo)(quando a janela é redimensionada, recalcular o tamanho), remove-lo do window;
+
+SERVIÇOS:
+
+-lazy load : instanciado apenas quando é chamado
+-singleton
+
+- value: valor injetável (variaveis inicializadas no inico da aplicacao [nome do app, posição de mensagens, etc]);
+- constant : disponivel durante a configuração da aplicação (quando demais serviços não foram instanciados[config]) BOOTSRAP(ao achar ng-app) (config ; run) ideal para urls, apis,...;
+- service : construtor , invocada 1 vez por 'new', reliza regras de negócio
+-
+
+FACTORY:
+- declarada como função: executa e retorna. Não da new; Factory:'= MyService()', Serviço:'= new MyService()'
+- 
+
+obs:
+dataHiding em factory
+
+function MyFactory($http){
+	var array = [{}{}{}];
+
+	function getUsers(){
+		return array;
+	}
+
+	return {getUsers:getUSers}; //retorna a execucao da funcao sem dar acesso ao escopo que possui o array;
+}
+
+function MyFactory($http){
+	return getUsers(){
+		return $http.get(...); //retornar objeto com funcao que retorna lista de users;
+	}
+}
+
+myFactory().then();
+
+ROTAS:
+
+ngRoute:
+
+.when(path, route) 
+.otherwise(path);
+
+ui-router:
+
+ng-view: diretiva do modulo de rotas (include do template)

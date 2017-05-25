@@ -1,0 +1,22 @@
+AULA 3
+
+CRUD - UPDAte
+DIRETIVAS CSS
+
+FORMULARIOS
+
+NGFROM/VALIDACOES
+
+validação de required:
+form.$valid
+form.$invalid
+
+
+form.$pristine 
+form.$dirty // quando o campo já foi alterado
+
+NGMESSAGES
+
+DIRETIVAS CUSTOMIZADAS
+
+codepen.io: exemplos de html+ css + js
