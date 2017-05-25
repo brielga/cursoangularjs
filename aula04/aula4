@@ -96,3 +96,6 @@ ngRoute:
 ui-router:
 
 ng-view: diretiva do modulo de rotas (include do template)
+
+# hashtag na url do browser
+para desabilitar : locationProvider.html5Mode
