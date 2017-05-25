@@ -99,3 +99,6 @@ ng-view: diretiva do modulo de rotas (include do template)
 
 # hashtag na url do browser
 para desabilitar : locationProvider.html5Mode
+
+
+resolve: injeção prefeita antes da instanciacao adicionada na propriedade definida; ex: lista de usuarios no /users/. Espera o retorno do resolve para poder instanciar o serviço.
